@@ -1,0 +1,19 @@
+FROM golang:1.16
+
+WORKDIR /
+RUN git clone https://github.com/docker-hy/material-applications.git
+WORKDIR /material-applications/example-backend
+
+ENV PORT=8080
+ENV REQUEST_ORIGIN=http://localhost:5000
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
+RUN pwd
+RUN ls -a
+RUN go build
+RUN go test ./...
+CMD ./server
+
+
+
+EXPOSE 8080

@@ -1,0 +1,3 @@
+Added following line to nginx conf. (In 2.8 excercise)
+
+rewrite ^/api/(.*) /$1 break;

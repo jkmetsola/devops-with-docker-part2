@@ -1,0 +1,5 @@
+No commands needed. Just added     
+    deploy:
+      replicas: 5
+
+To the docker-compose file.

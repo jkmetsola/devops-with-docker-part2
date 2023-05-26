@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  frontend:
+    image: my-frontend-image
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - 5000:5000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+
+  backend:
+    image: my-backend-image
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - 8080:8080
+    environment:
+      - PORT=8080
+      - REQUEST_ORIGIN=http://localhost:5000
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DATABASE=mydatabase
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mydatabase
+    volumes:
+      - ./database:/var/lib/postgresql/data
